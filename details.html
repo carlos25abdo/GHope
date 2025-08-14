@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل فواتير - موقع الاتحاد العام</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #222 0%, #fff 100%);
+            min-height: 100vh;
+            color: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            background: white;
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #e41e26, #119149, #fff, #232323);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .header .pal-flag {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .header .pal-flag span {
+            display: inline-block;
+            width: 40px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        .header .pal-flag .red { background: #e41e26; }
+        .header .pal-flag .white { background: #fff; border: 1px solid #ccc; }
+        .header .pal-flag .green { background: #119149; }
+        .header .pal-flag .black { background: #232323; }
+        .header h1 {
+            color: #222;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        .header p {
+            color: #119149;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .shop-info {
+            background: linear-gradient(135deg, #fff, #e9ecef);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid #119149;
+        }
+        .shop-info h3 {
+            color: #e41e26;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .shop-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #232323;
+            font-size: 0.95rem;
+        }
+        .detail-item i {
+            color: #119149;
+            width: 20px;
+        }
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid #e41e26;
+        }
+        .form-section h3 {
+            color: #119149;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            color: #232323;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #119149;
+            box-shadow: 0 0 0 3px rgba(17, 145, 73, 0.1);
+        }
+        .form-group input:read-only {
+            background: #e9ecef;
+            color: #666;
+            cursor: not-allowed;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #e41e26, #119149, #232323);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(228,30,38,0.08);
+            letter-spacing: 1px;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #119149, #fff, #e41e26);
+            color: #e41e26;
+            box-shadow: 0 10px 20px rgba(17,145,73,0.15);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .back-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #e41e26, #119149, #232323);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .back-link a:hover {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #e41e26;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+            border: 1px solid #119149;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #e41e26;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+            border: 1px solid #e41e26;
+        }
+        .modal-actions button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+        .cancel-btn {
+            background: #232323;
+            color: white;
+        }
+        .cancel-btn:hover {
+            background: #119149;
+            color: #fff;
+        }
+        .confirm-delete-btn {
+            background: linear-gradient(135deg, #e41e26, #232323);
+            color: white;
+        }
+        .confirm-delete-btn:hover {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #e41e26;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .header .pal-flag span {
+                width: 30px;
+                height: 8px;
+            }
+            .shop-info, .form-section {
+                padding: 1rem;
+            }
+            .form-group label {
+                font-size: 0.9rem;
+            }
+            .form-group input {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+            .submit-btn {
+                font-size: 1rem;
+                padding: 1rem 0;
+            }
+            .back-link a {
+                width: 100%;
+                font-size: 1rem;
+                padding: 1rem 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <div class="header">
+            <div class="pal-flag">
+                <span class="red"></span><span class="white"></span><span class="green"></span><span class="black"></span>
+            </div>
+            <h1 id="title">حملة التبرع لغزة - تسجيل الفواتير</h1>
+            <p>ساهم معنا في دعم غزة، كل فاتورة تسجلها تساهم في العطاء الفلسطيني.</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            تم حفظ البيانات بنجاح! سيتم العودة للصفحة السابقة...
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            حدث خطأ أثناء الحفظ. يرجى المحاولة مرة أخرى.
+        </div>
+
+        <div class="shop-info">
+            <h3>
+                <span style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323); border-radius:50%; padding:8px; display:inline-block;">
+                    <i class="fas fa-hand-holding-heart" style="color:#fff;"></i>
+                </span>
+                معلومات المحل
+            </h3>
+            <div class="shop-details">
+                <div class="detail-item">
+                    <span style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                        <i class="fas fa-hand-holding-heart" style="color:#fff;"></i>
+                    </span>
+                    <span>اسم المحل: <strong id="shopNameDisplay">-</strong></span>
+                </div>
+                <div class="detail-item">
+                    <span style="background: linear-gradient(135deg, #119149, #fff, #e41e26, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                        <i class="fas fa-calendar" style="color:#fff;"></i>
+                    </span>
+                    <span>التاريخ: <strong id="dateDisplay">-</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>
+                <span style="background: linear-gradient(135deg, #119149, #fff, #e41e26, #232323); border-radius:50%; padding:8px; display:inline-block;">
+                    <i class="fas fa-heart" style="color:#fff;"></i>
+                </span>
+                إدخال البيانات
+            </h3>
+<form id="formB">
+                <div class="form-group">
+                    <label for="shop">
+                        <span style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                            <i class="fas fa-hand-holding-heart" style="color:#fff;"></i>
+                        </span>
+                        اسم المحل
+                    </label>
+    <input id="shop" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">
+                        <span style="background: linear-gradient(135deg, #119149, #fff, #e41e26, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                            <i class="fas fa-calendar" style="color:#fff;"></i>
+                        </span>
+                        تاريخ اليوم
+                    </label>
+    <input id="date" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="bills">
+                        <span style="background: linear-gradient(135deg, #119149, #fff, #e41e26, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                            <i class="fas fa-heart" style="color:#fff;"></i>
+                        </span>
+                        عدد الفواتير
+                    </label>
+                    <input 
+                        id="bills" 
+                        type="number" 
+                        min="0" 
+                        placeholder="أدخل عدد الفواتير"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323); border-radius:50%; padding:6px; display:inline-block;">
+                        <i class="fas fa-heart" style="color:#fff;"></i>
+                    </span>
+                    حفظ البيانات
+                </button>
+</form>
+</div>
+
+        <div class="back-link">
+            <a href="list.html">
+                <i class="fas fa-arrow-right"></i>
+                العودة لقائمة المحلات
+            </a>
+        </div>
+    </div>
+
+<script>
+// رابط Google Form B
+const FORM_B_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdQ-oGKyPMON4s-z1ftdMhskwKkhPgh-y2u6XY27Z588oc6zQ/formResponse";
+// الحقول
+const ENTRY_B_SHOP = "entry.262063044";
+const ENTRY_B_DATE = "entry.1626390134";
+const ENTRY_B_BILLS = "entry.2009618404";
+
+// جلب اسم المحل من الرابط
+let params = new URLSearchParams(window.location.search);
+let shopName = params.get("shop") || "";
+        
+        // تحديث العنوان والعرض
+document.getElementById("shop").value = shopName;
+        document.getElementById("shopNameDisplay").textContent = shopName;
+document.getElementById("title").textContent = `تسجيل فواتير - ${shopName}`;
+
+// تاريخ اليوم
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, "0");
+let mm = String(today.getMonth() + 1).padStart(2, "0");
+let yyyy = today.getFullYear();
+let dateStr = `${yyyy}-${mm}-${dd}`;
+        
+document.getElementById("date").value = dateStr;
+        document.getElementById("dateDisplay").textContent = dateStr;
+
+        const form = document.getElementById("formB");
+        const submitBtn = document.getElementById("submitBtn");
+        const successMessage = document.getElementById("successMessage");
+        const errorMessage = document.getElementById("errorMessage");
+
+        form.addEventListener("submit", function(e) {
+    e.preventDefault();
+            
+            // إخفاء الرسائل السابقة
+            successMessage.style.display = "none";
+            errorMessage.style.display = "none";
+
+            // تعطيل الزر وإظهار التحميل
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+
+            // جمع البيانات
+            const bills = document.getElementById("bills").value;
+
+            // إنشاء FormData
+    let fd = new FormData();
+    fd.append(ENTRY_B_SHOP, shopName);
+    fd.append(ENTRY_B_DATE, dateStr);
+            fd.append(ENTRY_B_BILLS, bills);
+
+            // إرسال البيانات
+            fetch(FORM_B_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                body: fd 
+            })
+    .then(() => {
+                // عرض رسالة النجاح
+                successMessage.style.display = "block";
+                
+                // إعادة تعيين النموذج
+                form.reset();
+                document.getElementById("bills").value = "";
+                
+                // العودة للصفحة السابقة بعد ثانيتين
+                setTimeout(() => {
+        history.back();
+                }, 2000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                errorMessage.style.display = "block";
+                
+                // إعادة تفعيل الزر
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> حفظ البيانات';
+            });
+        });
+
+        // تحسين تجربة المستخدم - إضافة تأثيرات على الحقول
+        const inputs = document.querySelectorAll('input:not([readonly])');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+    });
+});
+
+        // التحقق من صحة البيانات
+        document.getElementById("bills").addEventListener("input", function() {
+            const value = parseInt(this.value);
+            if (value < 0) {
+                this.value = 0;
+            }
+        });
+</script>
+</body>
+</html>

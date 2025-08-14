@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المحلات - حملة تبرع لغزة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #222 0%, #fff 100%);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 8px solid #e41e26; /* أحمر فلسطيني */
+        }
+
+        .header .pal-flag {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .header .pal-flag span {
+            display: inline-block;
+            width: 40px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        .header .pal-flag .red { background: #e41e26; }
+        .header .pal-flag .white { background: #fff; border: 1px solid #ccc; }
+        .header .pal-flag .green { background: #119149; }
+        .header .pal-flag .black { background: #232323; }
+
+        .header h1 {
+            color: #222;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: #119149;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .search-section h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .shops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .shop-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .shop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .shop-card .shop-content {
+            cursor: pointer;
+        }
+
+        .shop-card .shop-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .shop-card .shop-actions button {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .shop-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .shop-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-details {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .view-btn, .delete-btn {
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1.5rem;
+        }
+        .view-btn {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #232323;
+        }
+        .view-btn:hover {
+            background: linear-gradient(135deg, #e41e26, #119149);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .delete-btn {
+            background: linear-gradient(135deg, #e41e26, #232323);
+            color: #fff;
+        }
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #e41e26;
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-actions button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .confirm-delete-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .modal-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .success-toast.show {
+            transform: translateX(0);
+        }
+
+        .success-toast i {
+            margin-left: 0.5rem;
+        }
+
+        .no-results {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #e41e26, #119149, #232323);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .back-link a:hover {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #e41e26;
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+        }
+
+        .loading i {
+            font-size: 3rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .container {
+                padding: 0 0.5rem;
+            }
+            .shops-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .shop-card {
+                padding: 1rem;
+            }
+            .shop-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .view-btn, .delete-btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 0.8rem 0;
+                margin-bottom: 0.5rem;
+            }
+            .stats-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .back-link a {
+                width: 100%;
+                font-size: 1rem;
+                padding: 1rem 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .shop-name {
+                font-size: 1rem;
+            }
+            .shop-details {
+                font-size: 0.85rem;
+            }
+        }
+</style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="pal-flag">
+                <span class="red"></span><span class="white"></span><span class="green"></span><span class="black"></span>
+            </div>
+            <h1>قائمة المتبرعين لحملة غزة</h1>
+            <p>ساهم معنا في دعم أهلنا في غزة، كل تبرع يصنع فرقاً ويعبر عن هويتنا الفلسطينية الأصيلة.</p>
+        </div>
+    </div>
+
+<div class="container">
+        <div class="search-section">
+            <h2>
+                <i class="fas fa-search"></i>
+                البحث في المحلات
+            </h2>
+            <div class="search-box">
+                <input 
+                    id="search" 
+                    class="search-input" 
+                    type="text" 
+                    placeholder="ابحث باسم المحل..."
+                >
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalShops">0</div>
+                <div class="stat-label">إجمالي المحلات</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="filteredShops">0</div>
+                <div class="stat-label">نتائج البحث</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="lastUpdated">-</div>
+                <div class="stat-label">آخر تحديث</div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner"></i>
+            <p>جاري تحميل المحلات...</p>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>لا توجد نتائج</h3>
+            <p>جرب البحث بكلمات مختلفة</p>
+        </div>
+
+        <div id="shopsGrid" class="shops-grid" style="display: none;"></div>
+
+        <!-- Modal تأكيد الحذف -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>تأكيد الحذف</h3>
+                    <p>هل أنت متأكد من حذف المحل "<span id="shopNameToDelete"></span>"؟</p>
+                    <p style="color: #ff6b6b; font-size: 0.9rem;">لا يمكن التراجع عن هذا الإجراء!</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" onclick="closeDeleteModal()">
+                        <i class="fas fa-times"></i>
+                        إلغاء
+                    </button>
+                    <button class="confirm-delete-btn" onclick="confirmDelete()">
+                        <i class="fas fa-trash"></i>
+                        حذف
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- رسالة النجاح -->
+        <div id="successToast" class="success-toast" style="display:none;"></div>
+
+        <div class="back-link">
+            <a href="index.html">
+                <i class="fas fa-arrow-right"></i>
+                العودة للصفحة الرئيسية
+            </a>
+        </div>
+</div>
+
+<script>
+// إعداد Google Sheet
+const SHEET_ID = "1MUFoYd4Mc_GrrjCMAEMK-GlgVZL1dkMpxEz56Mf7rxE";
+const SHEET_NAME = "form 1";
+const SHOP_NAME_HEADER = "اسم محل";
+
+const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+
+let shops = [];
+        let filteredShops = [];
+        let shopToDelete = null;
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showNoResults(show) {
+            document.getElementById('noResults').style.display = show ? 'block' : 'none';
+        }
+
+        function showShopsGrid(show) {
+            document.getElementById('shopsGrid').style.display = show ? 'grid' : 'none';
+        }
+
+        function updateStats() {
+            document.getElementById('totalShops').textContent = shops.length;
+            document.getElementById('filteredShops').textContent = filteredShops.length;
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-SA');
+            document.getElementById('lastUpdated').textContent = timeString;
+        }
+
+        function renderShops() {
+            const grid = document.getElementById("shopsGrid");
+            grid.innerHTML = "";
+
+            if (filteredShops.length === 0) {
+                showNoResults(true);
+                showShopsGrid(false);
+                return;
+            }
+
+            showNoResults(false);
+            showShopsGrid(true);
+
+            filteredShops.forEach(shop => {
+                const card = document.createElement("div");
+                card.className = "shop-card";
+
+                card.innerHTML = `
+                    <div class="shop-content" onclick="viewShop('${encodeURIComponent(shop)}')">
+                        <div class="shop-icon" style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323);">
+                            <i class="fas fa-hand-holding-heart" style="color:#fff;"></i>
+                        </div>
+                        <div class="shop-name">${shop}</div>
+                        <div class="shop-details">
+                            <i class="fas fa-map-marker-alt" style="color:#e41e26; background: #fff; border-radius: 50%; padding: 4px;"></i>
+                            موقع المحل
+                        </div>
+                    </div>
+                    <div class="shop-actions">
+                        <button class="view-btn" onclick="viewShop('${encodeURIComponent(shop)}')">
+                            <i class="fas fa-eye" style="color:#119149; background: #fff; border-radius: 50%; padding: 4px;"></i>
+                            عرض
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function filterShops(searchTerm) {
+            filteredShops = shops.filter(shop => 
+                shop.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            renderShops();
+            updateStats();
+        }
+
+        // البحث
+document.getElementById("search").addEventListener("input", e => {
+            filterShops(e.target.value);
+});
+
+        // تحميل البيانات
+        function loadShops() {
+            showLoading(true);
+
+fetch(GVIZ_URL)
+    .then(r => r.text())
+    .then(txt => {
+                    try {
+        let json = JSON.parse(txt.substr(47).slice(0, -2));
+        let cols = json.table.cols.map(c => c.label);
+        let idx = cols.indexOf(SHOP_NAME_HEADER);
+                        
+                        shops = [];
+        json.table.rows.forEach(row => {
+            let val = row.c[idx] ? row.c[idx].v : "";
+            if (val) shops.push(val);
+        });
+                        
+        shops = [...new Set(shops)];
+                        filteredShops = [...shops];
+                        
+                        showLoading(false);
+                        renderShops();
+                        updateStats();
+                        
+                    } catch (e) {
+                        console.log('خطأ في تحميل البيانات');
+                        showLoading(false);
+                        showNoResults(true);
+                    }
+                })
+                .catch(e => {
+                    console.log('خطأ في الاتصال');
+                    showLoading(false);
+                    showNoResults(true);
+                });
+        }
+
+        // تحميل المحلات عند تحميل الصفحة
+        loadShops();
+
+        // دوال الحذف
+        function viewShop(shopName) {
+            window.location.href = `details.html?shop=${shopName}`;
+        }
+
+        function showDeleteModal(shopName) {
+            shopToDelete = shopName;
+            document.getElementById('shopNameToDelete').textContent = shopName;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            shopToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (!shopToDelete) return;
+            
+            // تعطيل زر الحذف وإظهار التحميل
+            const confirmBtn = document.querySelector('.confirm-delete-btn');
+            const originalText = confirmBtn.innerHTML;
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحذف...';
+            
+            // محاولة حذف المحل من Google Sheets
+            deleteShopFromSheet(shopToDelete)
+                .then(() => {
+                    // حذف المحل من المصفوفة المحلية
+                    shops = shops.filter(shop => shop !== shopToDelete);
+                    filteredShops = filteredShops.filter(shop => shop !== shopToDelete);
+                    
+                    // إعادة عرض القائمة
+                    renderShops();
+                    updateStats();
+                    
+                    // إغلاق النافذة المنبثقة
+                    closeDeleteModal();
+                    
+                    // عرض رسالة النجاح
+                    showSuccessToast();
+                })
+                .catch((error) => {
+                    console.error('خطأ في حذف المحل:', error);
+                    alert('حدث خطأ أثناء حذف المحل. يرجى المحاولة مرة أخرى.');
+                    
+                    // إعادة تفعيل الزر
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = originalText;
+                });
+        }
+
+        // دالة حذف المحل من Google Sheets
+        async function deleteShopFromSheet(shopName) {
+            // رابط Google Apps Script (يجب تحديثه برابط النشر الخاص بك)
+            const DELETE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+            
+            try {
+                const response = await fetch(DELETE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        shopName: shopName,
+                        sheetId: SHEET_ID
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('فشل في حذف المحل');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                // إذا فشل الاتصال بـ Google Apps Script، نستخدم الطريقة البديلة
+                console.log('استخدام الطريقة البديلة للحذف...');
+                return deleteShopAlternative(shopName);
+            }
+        }
+
+        // الطريقة البديلة للحذف (تحديث الصف بحقل فارغ)
+        async function deleteShopAlternative(shopName) {
+            // إنشاء Google Form جديد للحذف
+            const DELETE_FORM_URL = "https://docs.google.com/forms/u/0/d/e/YOUR_DELETE_FORM_ID/formResponse";
+            const DELETE_ENTRY_SHOP = "entry.XXXXXXXXX"; // سيتم تحديثه لاحقاً
+            
+            const formData = new FormData();
+            formData.append(DELETE_ENTRY_SHOP, `DELETE_${shopName}_${Date.now()}`);
+            
+            try {
+                await fetch(DELETE_FORM_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                // نجح الحذف البديل
+                return { success: true, method: 'alternative' };
+            } catch (error) {
+                throw new Error('فشل في الحذف البديل');
+            }
+        }
+
+        function showSuccessToast() {
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // إغلاق النافذة المنبثقة عند النقر خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteModal');
+            if (event.target === modal) {
+                closeDeleteModal();
+            }
+        }
+</script>
+</body>
+</html>

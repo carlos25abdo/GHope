@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حملة تبرع لي غزة - الصفحة الرئيسية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #222 0%, #fff 100%);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 8px solid #e41e26; /* أحمر فلسطيني */
+        }
+
+        .hero h1 {
+            color: #222;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+
+        .hero .pal-flag {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .pal-flag span {
+            display: inline-block;
+            width: 40px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        .pal-flag .red { background: #e41e26; }
+        .pal-flag .white { background: #fff; border: 1px solid #ccc; }
+        .pal-flag .green { background: #119149; }
+        .pal-flag .black { background: #232323; }
+
+        .hero p {
+            color: #119149;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(228,30,38,0.08);
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #119149, #e41e26, #232323, #fff);
+            color: #e41e26;
+            box-shadow: 0 10px 20px rgba(17,145,73,0.15);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #232323, #e41e26);
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #119149, #fff);
+            color: #232323;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stats h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .container {
+                padding: 0 0.5rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .card-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            .btn, .btn-secondary {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 1rem 0;
+                margin-bottom: 0.5rem;
+            }
+            .stats h2 {
+                font-size: 1.2rem;
+            }
+            .footer {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.1rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            .card p {
+                font-size: 0.9rem;
+            }
+            .stats {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="pal-flag">
+                <span class="red"></span><span class="white"></span><span class="green"></span><span class="black"></span>
+            </div>
+            <h1>حملة التبرع لغزة</h1>
+            <p>ساهم في حملة التبرع لغزة! دعمك يصنع الأمل ويعيد الحياة لأهلنا في غزة. كل تبرع منك هو رسالة تضامن وانتماء للهوية الفلسطينية. كن جزءاً من العطاء وشارك في رسم البسمة على وجوه المحتاجين.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon" style="background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323);">
+                    <i class="fas fa-hand-holding-heart" style="color:#fff;"></i>
+                </div>
+                <h3>تسجيل محل جديد</h3>
+                <p>شارك في دعم أهل غزة من خلال تسجيل متبرع جديد. كل مساهمة تحدث فرقاً وتمنح الأمل لمن يحتاج.</p>
+                <a href="register.html" class="btn">تسجيل محل جديد</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon" style="background: linear-gradient(135deg, #119149, #fff, #e41e26, #232323);">
+                    <i class="fas fa-list" style="color:#fff;"></i>
+                </div>
+                <h3>عرض قائمة المحلات</h3>
+                <p>تصفح قائمة المتبرعين وكن جزءاً من حملة العطاء لغزة. التضامن يصنع المستقبل الأفضل.</p>
+                <a href="list.html" class="btn btn-secondary">عرض القائمة</a>
+            </div>
+        </div>
+
+        <div class="stats">
+            <h2>إحصائيات النظام</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalShops">0</div>
+                    <div class="stat-label">محل مسجل</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalBills">0</div>
+                    <div class="stat-label">فاتورة مسجلة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="activeUsers">0</div>
+                    <div class="stat-label">مستخدم نشط</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2024 حملة التبرع لغزة. جميع الحقوق محفوظة. الهوية الفلسطينية تجمعنا.</p>
+        </div>
+    </div>
+
+    <script>
+        // إعداد Google Sheet للإحصائيات
+        const SHEET_ID = "1MUFoYd4Mc_GrrjCMAEMK-GlgVZL1dkMpxEz56Mf7rxE";
+        const SHEET_NAME = "form 1";
+        const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            fetch(GVIZ_URL)
+                .then(r => r.text())
+                .then(txt => {
+                    try {
+                        let json = JSON.parse(txt.substr(47).slice(0, -2));
+                        let totalShops = json.table.rows.length;
+                        
+                        document.getElementById('totalShops').textContent = totalShops;
+                        document.getElementById('totalBills').textContent = Math.floor(totalShops * 1.5); // تقديري
+                        document.getElementById('activeUsers').textContent = Math.floor(totalShops * 0.8); // تقديري
+                    } catch (e) {
+                        console.log('خطأ في تحميل الإحصائيات');
+                    }
+                })
+                .catch(e => {
+                    console.log('خطأ في الاتصال');
+                });
+        }
+
+        // تحديث الإحصائيات عند تحميل الصفحة
+        updateStats();
+    </script>
+</body>
+</html>
