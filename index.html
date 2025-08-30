@@ -14,25 +14,25 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #222 0%, #fff 100%);
+            background: linear-gradient(135deg, #0063a6 0%, #3ba3d8 100%);
             min-height: 100vh;
             color: #222;
         }
 
         .hero {
-            background: rgba(255, 255, 255, 0.15);
+            background: #ff8500;
             backdrop-filter: blur(10px);
             padding: 2rem 0;
             text-align: center;
             margin-bottom: 3rem;
-            border-bottom: 8px solid #e41e26; /* أحمر فلسطيني */
+            border-bottom: 8px solid #ffcb85;
         }
 
         .hero h1 {
-            color: #222;
+            color: #0063a6;
             font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
             letter-spacing: 2px;
         }
 
@@ -49,13 +49,13 @@
             height: 10px;
             border-radius: 2px;
         }
-        .pal-flag .red { background: #e41e26; }
-        .pal-flag .white { background: #fff; border: 1px solid #ccc; }
-        .pal-flag .green { background: #119149; }
-        .pal-flag .black { background: #232323; }
+        .pal-flag .red { background: #619dae; }
+        .pal-flag .white { background: #ffcb85; border: 1px solid #3ba3d8; }
+        .pal-flag .green { background: #3ba3d8; }
+        .pal-flag .black { background: #0063a6; }
 
         .hero p {
-            color: #119149;
+            color:#000 ;
             font-size: 1.3rem;
             max-width: 700px;
             margin: 0 auto;
@@ -76,11 +76,11 @@
         }
 
         .card {
-            background: white;
+            background: #ffcb85;
             border-radius: 20px;
             padding: 2.5rem;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,99,166,0.10);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -93,7 +93,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #ff8500, #ffa53a, #ffcb85, #0063a6, #3ba3d8);
         }
 
         .card:hover {
@@ -104,24 +104,24 @@
         .card-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ff8500, #3ba3d8);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            color: white;
+            color: #fff;
             font-size: 2rem;
         }
 
         .card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: #333;
+            color: #0063a6;
         }
 
         .card p {
-            color: #666;
+            color: #0063a6;
             margin-bottom: 2rem;
             line-height: 1.6;
         }
@@ -129,8 +129,8 @@
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
-            background: linear-gradient(135deg, #e41e26, #119149, #fff, #232323);
-            color: white;
+            background: linear-gradient(135deg, #ff8500, #3ba3d8);
+            color: #fff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
@@ -138,26 +138,26 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            box-shadow: 0 2px 8px rgba(228,30,38,0.08);
+            box-shadow: 0 2px 8px rgba(0,99,166,0.10);
             letter-spacing: 1px;
         }
         .btn:hover {
-            background: linear-gradient(135deg, #119149, #e41e26, #232323, #fff);
-            color: #e41e26;
-            box-shadow: 0 10px 20px rgba(17,145,73,0.15);
+            background: linear-gradient(135deg, #3ba3d8, #ff8500);
+            color: #ff8500;
+            box-shadow: 0 10px 20px rgba(0,99,166,0.18);
             transform: translateY(-2px) scale(1.04);
         }
         .btn-secondary {
-            background: linear-gradient(135deg, #232323, #e41e26);
+            background: linear-gradient(135deg, #0063a6, #3ba3d8);
             color: #fff;
         }
         .btn-secondary:hover {
-            background: linear-gradient(135deg, #119149, #fff);
-            color: #232323;
+            background: linear-gradient(135deg, #ff8500, #ffa53a);
+            color: #0063a6;
         }
 
         .stats {
-            background: rgba(255, 255, 255, 0.1);
+            background: #ffa53a;
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 2rem;
@@ -165,7 +165,7 @@
         }
 
         .stats h2 {
-            color: white;
+            color: #0063a6;
             text-align: center;
             margin-bottom: 2rem;
             font-size: 2rem;
@@ -179,7 +179,7 @@
 
         .stat-item {
             text-align: center;
-            color: white;
+            color: #ff8500;
         }
 
         .stat-number {
@@ -194,12 +194,12 @@
         }
 
         .footer {
-            background: rgba(0, 0, 0, 0.1);
+            background: #0063a6;
             backdrop-filter: blur(10px);
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
-            color: white;
+            color: #fff;
         }
 
         @media (max-width: 768px) {
@@ -264,7 +264,8 @@
                 <span class="red"></span><span class="white"></span><span class="green"></span><span class="black"></span>
             </div>
             <h1>حملة التبرع لغزة</h1>
-            <p>ساهم في حملة التبرع لغزة! دعمك يصنع الأمل ويعيد الحياة لأهلنا في غزة. كل تبرع منك هو رسالة تضامن وانتماء للهوية الفلسطينية. كن جزءاً من العطاء وشارك في رسم البسمة على وجوه المحتاجين.</p>
+            <p>ساهم في حملة التبرع لغزة من خلال محلك التجاري! دعم المحلات التجارية يصنع الأمل ويعيد الحياة لأهلنا في غزة. كل مساهمة من محلك هي رسالة تضامن وانتماء للهوية الفلسطينية. كن جزءاً من العطاء وشارك في رسم البسمة على وجوه المحتاجين.</p>
+            <p style="margin-top:1rem;font-weight:bold;">قيمة التبرع عن كل فاتورة هي نصف دينار فقط.</p>
         </div>
     </div>
 

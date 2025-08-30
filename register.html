@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #222 0%, #fff 100%);
+            background: linear-gradient(135deg, #0063a6 0%, #3ba3d8 100%);
             min-height: 100vh;
             color: #222;
             display: flex;
@@ -24,10 +24,10 @@
         }
 
         .container {
-            background: white;
+            background: #ffcb85;
             border-radius: 25px;
             padding: 3rem;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            box-shadow: none;
             width: 100%;
             max-width: 500px;
             position: relative;
@@ -41,7 +41,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #e41e26, #119149, #fff, #232323);
+            background: linear-gradient(90deg, #ff8500, #ffa53a, #ffcb85, #0063a6, #3ba3d8);
         }
 
         .header {
@@ -62,20 +62,20 @@
             height: 10px;
             border-radius: 2px;
         }
-        .header .pal-flag .red { background: #e41e26; }
-        .header .pal-flag .white { background: #fff; border: 1px solid #ccc; }
-        .header .pal-flag .green { background: #119149; }
-        .header .pal-flag .black { background: #232323; }
+        .header .pal-flag .red { background: #ff8500; }
+        .header .pal-flag .white { background: #ffcb85; border: 1px solid #3ba3d8; }
+        .header .pal-flag .green { background: #3ba3d8; }
+        .header .pal-flag .black { background: #0063a6; }
 
         .header h1 {
-            color: #222;
+            color: #0063a6;
             font-size: 2rem;
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
         }
 
         .header p {
-            color: #119149;
+            color: #ff8500;
             font-size: 1rem;
             font-weight: bold;
         }
@@ -87,7 +87,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: #0063a6;
             font-weight: 600;
             font-size: 0.95rem;
         }
@@ -95,18 +95,18 @@
         .form-group input {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #e1e5e9;
+            border: 2px solid #3ba3d8;
             border-radius: 12px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #f8f9fa;
+            background: #fff;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #ff8500;
+            background: #ffcb85;
+            box-shadow: none;
         }
 
         .form-group input::placeholder {
@@ -116,8 +116,8 @@
         .submit-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #e41e26, #119149, #232323);
-            color: white;
+            background: linear-gradient(135deg, #ff8500, #3ba3d8);
+            color: #fff;
             border: none;
             border-radius: 12px;
             font-size: 1.1rem;
@@ -125,14 +125,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 1rem;
-            box-shadow: 0 2px 8px rgba(228,30,38,0.08);
+            box-shadow: none;
             letter-spacing: 1px;
         }
         .submit-btn:hover {
-            background: linear-gradient(135deg, #119149, #fff, #e41e26);
-            color: #e41e26;
-            box-shadow: 0 10px 20px rgba(17,145,73,0.15);
-            transform: translateY(-2px) scale(1.04);
+            background: linear-gradient(135deg, #3ba3d8, #ff8500);
+            color: #ff8500;
         }
         .submit-btn:active {
             transform: translateY(0);
@@ -148,15 +146,14 @@
             text-decoration: none;
             font-weight: 600;
             padding: 1rem 2rem;
-            background: linear-gradient(135deg, #e41e26, #119149, #232323);
+            background: linear-gradient(135deg, #0063a6, #3ba3d8);
             border-radius: 50px;
             transition: all 0.3s ease;
             display: inline-block;
         }
         .back-link a:hover {
-            background: linear-gradient(135deg, #119149, #fff);
-            color: #e41e26;
-            transform: translateY(-2px) scale(1.04);
+            background: linear-gradient(135deg, #ff8500, #ffa53a);
+            color: #0063a6;
         }
 
         .back-link i {
@@ -164,8 +161,8 @@
         }
 
         .success-message {
-            background: #d4edda;
-            color: #155724;
+            background: #3ba3d8;
+            color: #fff;
             padding: 1rem;
             border-radius: 12px;
             margin-bottom: 1.5rem;
@@ -174,8 +171,8 @@
         }
 
         .error-message {
-            background: #f8d7da;
-            color: #721c24;
+            background: #ff8500;
+            color: #fff;
             padding: 1rem;
             border-radius: 12px;
             margin-bottom: 1.5rem;
