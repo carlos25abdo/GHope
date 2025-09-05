@@ -601,6 +601,10 @@ let shops = [];
                             <i class="fas fa-map-marker-alt" style="color:#0063a6; background: #fff; border-radius: 50%; padding: 4px;"></i>
                             موقع المحل
                         </div>
+                        <div class="shop-details" style="margin-top: 0.5rem;">
+                            <i class="fas fa-coins" style="color:#ff8500; background: #fff; border-radius: 50%; padding: 4px;"></i>
+                            <span id="donation-${shop.replace(/\s+/g, '-')}">جاري التحميل...</span>
+                        </div>
                     </div>
                     <div class="shop-actions">
                         <button class="view-btn" onclick="viewShop('${encodeURIComponent(shop)}')">
@@ -612,6 +616,9 @@ let shops = [];
 
                 grid.appendChild(card);
             });
+            
+            // تحميل قيم التبرع
+            loadDonationValues();
         }
 
         function filterShops(searchTerm) {
@@ -626,6 +633,61 @@ let shops = [];
 document.getElementById("search").addEventListener("input", e => {
             filterShops(e.target.value);
 });
+
+        // تحميل قيم التبرع
+        async function loadDonationValues() {
+            try {
+                const response = await fetch(GVIZ_URL);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                
+                const cols = json.table.cols.map(c => c.label);
+                const shopNameIdx = cols.indexOf("اسم محل");
+                const donationValueIdx = cols.indexOf("قيمة التبرع");
+                
+                if (shopNameIdx !== -1 && donationValueIdx !== -1) {
+                    const donationData = {};
+                    
+                    json.table.rows.forEach(row => {
+                        const shopName = row.c[shopNameIdx] ? row.c[shopNameIdx].v : "";
+                        const donationValue = row.c[donationValueIdx] ? row.c[donationValueIdx].v : "0.5";
+                        if (shopName) {
+                            donationData[shopName] = donationValue;
+                        }
+                    });
+                    
+                    // تحديث عرض قيم التبرع
+                    filteredShops.forEach(shop => {
+                        const elementId = `donation-${shop.replace(/\s+/g, '-')}`;
+                        const element = document.getElementById(elementId);
+                        if (element) {
+                            const value = donationData[shop] || "نصف دينار";
+                            const displayValue = value === "دينار واحد" ? "دينار واحد" : "نصف دينار";
+                            element.textContent = displayValue;
+                        }
+                    });
+                } else {
+                    // إذا لم تكن هناك عمود قيمة التبرع، اعرض القيمة الافتراضية
+                    filteredShops.forEach(shop => {
+                        const elementId = `donation-${shop.replace(/\s+/g, '-')}`;
+                        const element = document.getElementById(elementId);
+                        if (element) {
+                            element.textContent = "نصف دينار (افتراضي)";
+                        }
+                    });
+                }
+            } catch (error) {
+                console.log('خطأ في تحميل قيم التبرع:', error);
+                // في حالة الخطأ، اعرض القيمة الافتراضية
+                filteredShops.forEach(shop => {
+                    const elementId = `donation-${shop.replace(/\s+/g, '-')}`;
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = "نصف دينار (افتراضي)";
+                    }
+                });
+            }
+        }
 
         // تحميل البيانات
         function loadShops() {

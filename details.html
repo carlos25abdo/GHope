@@ -310,6 +310,12 @@
                     </span>
                     <span>التاريخ: <strong id="dateDisplay">-</strong></span>
                 </div>
+                <div class="detail-item">
+                    <span style="background: linear-gradient(135deg, #ff8500, #ffa53a, #ffcb85, #0063a6, #3ba3d8); border-radius:50%; padding:6px; display:inline-block;">
+                        <i class="fas fa-coins" style="color:#fff;"></i>
+                    </span>
+                    <span>قيمة التبرع: <strong id="donationValueDisplay">-</strong></span>
+                </div>
             </div>
         </div>
 
@@ -390,6 +396,43 @@ let shopName = params.get("shop") || "";
 document.getElementById("shop").value = shopName;
         document.getElementById("shopNameDisplay").textContent = shopName;
 document.getElementById("title").textContent = `تسجيل فواتير - ${shopName}`;
+
+// جلب قيمة التبرع من Google Sheets
+async function loadDonationValue() {
+    try {
+        const SHEET_ID = "1MUFoYd4Mc_GrrjCMAEMK-GlgVZL1dkMpxEz56Mf7rxE";
+        const SHEET_NAME = "form 1";
+        const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+        
+        const response = await fetch(GVIZ_URL);
+        const text = await response.text();
+        const json = JSON.parse(text.substr(47).slice(0, -2));
+        
+        const cols = json.table.cols.map(c => c.label);
+        const shopNameIdx = cols.indexOf("اسم محل");
+        const donationValueIdx = cols.indexOf("قيمة التبرع");
+        
+        if (shopNameIdx !== -1 && donationValueIdx !== -1) {
+            for (let row of json.table.rows) {
+                const rowShopName = row.c[shopNameIdx] ? row.c[shopNameIdx].v : "";
+                if (rowShopName === shopName) {
+                    const donationValue = row.c[donationValueIdx] ? row.c[donationValueIdx].v : "0.5";
+                    const displayValue = donationValue === "1" ? "دينار واحد" : "نصف دينار";
+                    document.getElementById("donationValueDisplay").textContent = displayValue;
+                    break;
+                }
+            }
+        } else {
+            document.getElementById("donationValueDisplay").textContent = "نصف دينار (افتراضي)";
+        }
+    } catch (error) {
+        console.log('خطأ في تحميل قيمة التبرع:', error);
+        document.getElementById("donationValueDisplay").textContent = "نصف دينار (افتراضي)";
+    }
+}
+
+// تحميل قيمة التبرع
+loadDonationValue();
 
 // تاريخ اليوم
 let today = new Date();
